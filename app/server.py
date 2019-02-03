@@ -8,22 +8,27 @@ from io import BytesIO
 from fastai import *
 from fastai.vision import *
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1pj4LNHgE6U0YbUtOclWL3P-F-fx9qY0N'
+export_file_url = 'https://www.dropbox.com/s/5jkl0psy8insaf9/export.pkl?raw=1'
 export_file_name = 'export.pkl'
 
-classes = ['hot_dog', 'not_hot_dog']
+classes = ['hot-dog','not-hot-dog']
 path = Path(__file__).parent
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
+async def download_file(url, dest):
+    if dest.exists(): return
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            data = await response.read()
+            with open(dest, 'wb') as f: f.write(data)
+
 async def setup_learner():
+    await download_file(export_file_url, path/export_file_name)
     try:
-	print(path)
-	new_path = 'models'/export_file_name
-	print(new_path)
-        learn = load_learner(path, new_path)
+        learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
