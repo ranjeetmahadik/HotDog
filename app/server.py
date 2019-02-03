@@ -20,6 +20,7 @@ app.mount('/static', StaticFiles(directory='app/static'))
 
 async def setup_learner():
     try:
+	new_path = 'models'/export_file_name
         learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
