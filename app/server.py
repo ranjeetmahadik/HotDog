@@ -20,8 +20,10 @@ app.mount('/static', StaticFiles(directory='app/static'))
 
 async def setup_learner():
     try:
+	print(path)
 	new_path = 'models'/export_file_name
-        learn = load_learner(path, export_file_name)
+	print(new_path)
+        learn = load_learner(path, new_path)
         return learn
     except RuntimeError as e:
         if len(e.args) > 0 and 'CPU-only machine' in e.args[0]:
