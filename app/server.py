@@ -8,7 +8,7 @@ from io import BytesIO
 from fastai import *
 from fastai.vision import *
 
-export_file_url = 'https://drive.google.com/uc?export=download&id=1pj4LNHgE6U0YbUtOclWL3P-F-fx9qY0N'
+export_file_url = 'https://dl-web.dropbox.com/get/export.pkl?_download_id=971382317596664996198564736950456973871351336594035652436395325005&_notify_domain=www.dropbox.com&_subject_uid=1912663792&dl=1&w=AADjTAYtiMLhmLMkrTWY8OTtkxoAZbggNu6VHT55n53ryQ'
 export_file_name = 'export.pkl'
 
 classes = ['hot_dog', 'not_hot_dog']
